@@ -32,10 +32,26 @@ std::string::size_type width(const std::vector<std::string>&);
 std::vector<std::string> frame(const std::vector<std::string>&);
 std::vector<std::string> vcat(const std::vector<std::string>&, const std::vector<std::string>&);
 std::vector<std::string> hcat(const std::vector<std::string>&, const std::vector<std::string>&);
+std::vector<std::string> hcat_v2(const std::vector<std::string>&, const std::vector<std::string>&);
 void output(std::ostream& os, const std::vector<std::string>&);
 std::string randomStrGen(int);
 std::vector<Student_info> studentGen(int);
 bool is_palindrome(const std::string&);
 bool has_asc_desc(const std::string&);
+bool not_url_char(char c);
+std::string::const_iterator url_beg(std::string::const_iterator, std::string::const_iterator);
+std::string::const_iterator url_end(std::string::const_iterator, std::string::const_iterator);
+std::vector<std::string> find_urls(const std::string&);
+bool did_all_hw(const Student_info&);
+double grade_aux(const Student_info&);
+double median_analysis(const std::vector<Student_info>&);
+void write_analysis(std::ostream&, const std::string&, double analysis(const std::vector<Student_info>&), const std::vector<Student_info>&, const std::vector<Student_info>&);
+double average_grade(const Student_info&);
+double average_analysis(const std::vector<Student_info>&);
+double optimistic_median(const Student_info&);
+double optimistic_median_analysis (const std::vector<Student_info>&);
+double common_analysis(const std::vector<Student_info>&, double func(const Student_info&));
+void common_write_analysis(std::ostream&, const std::string&, double func(const Student_info&), const std::vector<Student_info>&, const std::vector<Student_info>&);
+void read_and_separate(std::vector<Student_info>&, std::vector<Student_info>&);
 
 #endif

@@ -3,8 +3,10 @@
 #include <algorithm>
 #include <list>
 #include <string>
+#include <functional>
+#include <iterator>
+#include <assert.h>
 #include "functions.h"
-#include "chap5tasks\task_5_0\StdAfx.h"
 
 using namespace std;
 
@@ -22,11 +24,39 @@ double median(vector<double>& vec)
 	vec_sz size = vec.size();
 	if (size == 0) throw domain_error("Empty vector mediate");
 
+	// cannot use "double median(const vector<double>& vec)" due to "sort" call:
 	sort(vec.begin(), vec.end());
 
 	vec_sz mid = size / 2;
 
 	return size % 2 == 0 ? (vec[mid] + vec[mid+1]) / 2 : vec[mid];
+}
+double optimistic_median(const Student_info& s)
+{
+	vector<double> nonzero;
+
+	remove_copy(s.homework.begin(), s.homework.end(), back_inserter(nonzero), 0);
+
+	if (nonzero.empty()) return grade(s.midterm, s.final, 0);
+	else return grade(s.midterm, s.final, median(nonzero));
+}
+// Task 6.5. - Write analysis func that calls "optimistic_median" func
+double optimistic_median_analysis (const vector<Student_info>& students)
+{
+	vector<double> grades;
+
+	transform(students.begin(), students.end(), back_inserter(grades), optimistic_median);
+
+	return median(grades);
+}
+// Task 6.6. - Write single analysis func (for median, optimistic_median and average)
+double common_analysis(const vector<Student_info>& students, double func(const Student_info&))
+{
+	vector<double> grades;
+
+	transform(students.begin(), students.end(), back_inserter(grades), func);
+
+	return median(grades);
 }
 double grade(double midterm, double final, double homework)
 {
@@ -41,9 +71,34 @@ double grade(const Student_info& s)
 {
 	return grade(s.midterm, s.final, s.homework);
 }
+double average_grade(const Student_info& s)
+{
+	return grade(s.midterm, s.final, average(s.homework));
+}
 bool fgrade(const Student_info& s)
 {
 	return grade(s) < 60;
+}
+double grade_aux(const Student_info& s)
+{
+	try { return grade(s); }
+	catch (domain_error) { return grade(s.midterm, s.final, 0); }
+}
+double median_analysis(const vector<Student_info>& students)
+{
+	vector<double> grades;
+
+	transform(students.begin(), students.end(), back_inserter(grades), grade_aux);
+
+	return median(grades);
+}
+double average_analysis(const vector<Student_info>& students)
+{
+	vector<double> grades;
+
+	transform(students.begin(), students.end(), back_inserter(grades), average_grade);
+
+	return median(grades);
 }
 bool compare(const Student_info& x, const Student_info& y)
 {
@@ -57,8 +112,10 @@ istream& read(istream& is, Student_info& s)
 	vector<double> homework;
 	read_hw(is, homework);
 
-	try { s.final_grade = grade(midterm, final, homework); }
-	catch (domain_error e) { cout << e.what(); }
+	//try { s.final_grade = grade(midterm, final, homework); }
+	//catch (domain_error e) { cout << e.what(); }
+
+	s.final_grade = grade(midterm, final, homework);
 
 	return is;
 }
@@ -77,7 +134,8 @@ istream& read_hw(istream& is, vector<double>& hw)
 }
 istream& cread(istream& is, std::vector<string>& vec)
 {
-		if (is) {
+	if (is)
+	{
 		vec.clear();
 		string s;
 		while (is >> s) vec.push_back(s);
@@ -113,6 +171,30 @@ list<Student_info> extract_fails(list<Student_info>& students)
 	}
 	return fail;
 }
+// Task 6.7. - Func to read and separate students by whether all homework done or not.
+void read_and_separate(vector<Student_info>& did, vector<Student_info>& didnt)
+{
+	Student_info student;
+
+	while (read(cin, student)) {
+		if (did_all_hw(student))
+			did.push_back(student);
+		else 
+			didnt.push_back(student);
+	}
+
+	if (did.empty()) {
+		cout << "No one student did complete any of homework!" << endl;
+	}
+
+	if (didnt.empty()) {
+		cout << "All of students did homework!" << endl;
+	}
+}
+bool did_all_hw(const Student_info& s)
+{
+	return ((find(s.homework.begin(), s.homework.end(), 0)) == s.homework.end());
+}
 vector<string> split(const string& s)
 {
 	vector<string> ret;
@@ -143,6 +225,7 @@ string::size_type width(const vector<string>& v)
         maxlen = max(maxlen, v[i].size());
     return maxlen;
 }
+// Task 6.1. - update func for iterators use.
 vector<string> frame(const vector<string>& v)
 {
     vector<string> ret;
@@ -151,10 +234,12 @@ vector<string> frame(const vector<string>& v)
 
     ret.push_back(border);
 
-    for (vector<string>::size_type i = 0; i < v.size(); ++i){
-        ret.push_back("* " + v[i] + string(maxlen - v[i].size(), ' ') + " *");
-    }
+    //for (vector<string>::size_type i = 0; i < v.size(); ++i) {
+	//	ret.push_back("* " + v[i] + string(maxlen - v[i].size(), ' ') + " *");}
 
+	for (vector<string>::const_iterator it = v.begin(); it < v.end(); ++it) {
+		ret.push_back("* " + (*it) + string(maxlen - (*it).size(), ' ') + " *");}
+	
     ret.push_back(border);
     return ret;
 }
@@ -174,14 +259,33 @@ vector<string> hcat(const vector<string>& left, const vector<string>& right)
 	string::size_type width1 = width(left) + 1;
 	vector<string>::size_type i = 0, j = 0;
 
-	while (i != left.size() || j != right.size()) {
+	for(;i < max(left.size(), right.size()); ++i, ++j) {
+		string s;
+		if (i < left.size()) s = left[i];
+		s += string(width1 - s.size(), ' ');
+		if (j < right.size()) s += right[j];
+
+		ret.push_back(s);
+	}
+	return ret;
+}
+// Task 6.1. - update func for iterators use.
+vector<string> hcat_v2(const vector<string>& left, const vector<string>& right)
+{
+	vector<string> ret;
+
+	string::size_type width1 = width(left) + 1;
+	//vector<string>::size_type i = 0, j = 0;
+	vector<string>::const_iterator i = left.begin(), j = right.begin();
+
+	while (i < left.end() || j < right.end()) {
 		string s;
 
-		if (i != left.size()) s = left[i++];
+		if (i < left.end()) s = *i++;
 
 		s += string(width1 - s.size(), ' ');
 
-		if (j != right.size()) s += right[j++];
+		if (j < right.end()) s += *j++;
 
 		ret.push_back(s);
 	}
@@ -191,14 +295,26 @@ void output(ostream& os, const vector<string>& v)
 {
 	for (vector<string>::size_type i = 0; i < v.size(); ++i) os << v[i] << endl;
 }
+void write_analysis(ostream& out, const string& name, double analysis(const vector<Student_info>&), const vector<Student_info>& did, const vector<Student_info>& didnt)
+{
+	out << name << ": median(did) = " << analysis(did) <<
+		", median(didnt) = " << analysis(didnt) << endl;
+}
+void common_write_analysis(ostream& out, const string& name, double func(const Student_info&), const vector<Student_info>& did, const vector<Student_info>& didnt)
+{
+	out << name << ": median(did) = " << common_analysis(did, func) <<
+		", median(didnt) = " << common_analysis(didnt, func) << endl;
+}
 string randomStrGen(int length) {
     static string charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
     string result;
     result.resize(length);
 
     //srand(time(NULL));
-    for (int i = 0; i < length; i++)
-        result[i] = charset[rand() % charset.length()];
+    for (int i = 0; i < length; i++) {
+        assert(rand() % charset.length() < charset.length());
+	result[i] = charset[rand() % charset.length()];
+	}
 
     return result;
 }
@@ -238,4 +354,52 @@ for (string::const_iterator it = s.begin(); it != s.end(); ++it) {
 		}
 	}
 return false;
+}
+bool not_url_char(char c)
+{
+	static const string url_ch = "~;/?:@=&$-_.+!*'(),";
+	return !(isalnum(c) || find(url_ch.begin(), url_ch.end(), c) != url_ch.end());
+}
+string::const_iterator url_beg(string::const_iterator b, string::const_iterator e)
+{
+	static const string sep = "://";
+	typedef string::const_iterator iter;
+	iter i = b;
+
+	while ((i = search(i, e, sep.begin(), sep.end())) != e) {
+		if (i != b && i + sep.size() != e) {
+			iter beg = i;
+
+			while (beg != b && isalpha(beg[-1]))
+				--beg;
+
+			if (beg != i && !not_url_char(i[sep.size()]))
+				return beg;
+		}
+
+		i += sep.size();
+	}
+	return e;
+}
+string::const_iterator url_end(string::const_iterator b, string::const_iterator e)
+{
+	return find_if(b, e, not_url_char);
+}
+vector<string> find_urls(const string& s)
+{
+	vector<string> ret;
+	typedef string::const_iterator iter;
+	iter b = s.begin(), e = s.end();
+
+	while (b != e) {
+		b = url_beg(b, e);
+
+		if (b != e) {
+			iter after = url_end(b, e);
+
+			ret.push_back(string(b, after));
+			b = after;
+		}
+	}
+	return ret;
 }
