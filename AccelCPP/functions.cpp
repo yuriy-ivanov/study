@@ -18,20 +18,6 @@ double average(const vector<double>& vec)
 	for (vector<double>::size_type i = 0; i < vec.size(); ++i) summ += vec[i];
 	return summ / (double)vec.size();
 }
-double median(vector<double>& vec)
-{
-	typedef vector<double>::size_type vec_sz;
-
-	vec_sz size = vec.size();
-	if (size == 0) throw domain_error("Empty vector mediate");
-
-	// cannot use "double median(const vector<double>& vec)" due to "sort" call:
-	sort(vec.begin(), vec.end());
-
-	vec_sz mid = size / 2;
-
-	return size % 2 == 0 ? (vec[mid] + vec[mid+1]) / 2 : vec[mid];
-}
 double optimistic_median(const Student_info& s)
 {
 	vector<double> nonzero;
@@ -59,6 +45,7 @@ double common_analysis(const vector<Student_info>& students, double func(const S
 
 	return median(grades);
 }
+
 double grade(double midterm, double final, double homework)
 {
 	return 0.2 * midterm + 0.4 * final + 0.4 * homework;
@@ -306,6 +293,7 @@ void common_write_analysis(ostream& out, const string& name, double func(const S
 	out << name << ": median(did) = " << common_analysis(did, func) <<
 		", median(didnt) = " << common_analysis(didnt, func) << endl;
 }
+
 string randomStrGen(int length) {
     static string charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
     string result;
@@ -498,3 +486,8 @@ int nrand(int n)
         return r;
 
 } 
+
+
+
+
+

@@ -24,7 +24,22 @@ double grade(double, double, double);
 double grade(double, double, const std::vector<double>&);
 double grade(const Student_info&);
 bool fgrade(const Student_info& s);
-double median(const std::vector<double>&);
+// Task 8.3. - Change function param from value to reference.
+// Already done before chapter 8.
+template <class T> T median(std::vector<T>& vec)
+{
+	typedef typename std::vector<T>::size_type vec_sz;
+
+	vec_sz size = vec.size();
+	if (size == 0) throw domain_error("Empty vector mediate");
+
+	// cannot use "T median(const vector<T>& vec)" due to "sort" call:
+	sort(vec.begin(), vec.end());
+
+	vec_sz mid = size / 2;
+
+	return size % 2 == 0 ? (vec[mid] + vec[mid+1]) / 2 : vec[mid];
+};
 double average(const std::vector<double>&);
 bool compare(const Student_info&, const Student_info&);
 std::istream& read(std::istream&, Student_info&);
@@ -57,6 +72,22 @@ double optimistic_median(const Student_info&);
 double optimistic_median_analysis (const std::vector<Student_info>&);
 double common_analysis(const std::vector<Student_info>&, double func(const Student_info&));
 void common_write_analysis(std::ostream&, const std::string&, double func(const Student_info&), const std::vector<Student_info>&, const std::vector<Student_info>&);
+// Task 8.1. - Write template function parametrized by final grade function type
+// Dependency mods
+template<class T> void common_write_analysis_g(std::ostream& out, const std::string& name, T func, const std::vector<Student_info>& did, const std::vector<Student_info>& didnt)
+{
+	out << name << ": median(did) = " << analysis_g(did, func) <<
+		", median(didnt) = " << analysis_g(didnt, func) << std::endl;
+};
+// Task 8.1. - Write template function parametrized by final grade function type
+template<class T> double analysis_g(const std::vector<Student_info>& students, T func)
+{
+	std::vector<double> grades;
+
+	transform(students.begin(), students.end(), back_inserter(grades), func);
+
+	return median(grades);
+};
 void read_and_separate(std::vector<Student_info>&, std::vector<Student_info>&);
 std::map<std::string, std::vector<size_t> > xref(std::istream& in, std::vector<std::string> find_words(const std::string&) = split);
 Grammar read_grammar(std::istream&);
@@ -66,5 +97,24 @@ bool bracketed(const std::string&);
 void gen_aux(const Grammar&, const std::string&, std::vector<std::string>&);
 void gen_aux_list(const Grammar&, const std::string&, std::list<std::string>&);
 int nrand(int);
+template<class Out> void gen_sentence_iterator(const Grammar& g, Out& os)
+{
+	gen_aux_iterator(g, "<sentence>", os);
+};
+template<class Out> void gen_aux_iterator(const Grammar& g, const std::string& word, Out& os)
+{
+	if (!bracketed(word))
+	{
+		*os++ = word;
+	} else {
+		Grammar::const_iterator it = g.find(word);
+		if (it == g.end()) throw logic_error("empty rule");
+
+		const Rule_collection& c = it->second;
+		const Rule& r = c[nrand(c.size())];
+
+		for (Rule::const_iterator i = r.begin(); i != r.end(); ++i) gen_aux_iterator(g, *i, os);
+	}
+};
 
 #endif
