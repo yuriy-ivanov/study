@@ -88,10 +88,6 @@ double average_analysis(const vector<Student_info>& students)
 
 	return median(grades);
 }
-bool compare(const Student_info& x, const Student_info& y)
-{
-	return x.name < y.name;
-}
 istream& read(istream& is, Student_info& s)
 {
 	double midterm, final;

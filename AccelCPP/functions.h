@@ -41,7 +41,10 @@ template <class T> T median(std::vector<T>& vec)
 	return size % 2 == 0 ? (vec[mid] + vec[mid+1]) / 2 : vec[mid];
 };
 double average(const std::vector<double>&);
-bool compare(const Student_info&, const Student_info&);
+template <class T> bool compare(const T& x, const T& y)
+{
+	return x.name() < y.name();
+}
 std::istream& read(std::istream&, Student_info&);
 std::istream& read_hw(std::istream&, std::vector<double>&);
 std::istream& cread(std::istream&, std::vector<std::string>&);
