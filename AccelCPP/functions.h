@@ -40,6 +40,23 @@ template <class T> T median(std::vector<T>& vec)
 
 	return size % 2 == 0 ? (vec[mid] + vec[mid+1]) / 2 : vec[mid];
 };
+// Task 10.2. - Reimplemet median() function to support vectors and arrays
+// of any arithmetic types.
+// Task 10.3. - Call of median() function should not change order of items in vector/array.
+template <typename Input> typename std::iterator_traits<Input>::value_type median2(const Input begin, const Input end)
+{
+	if (end <= begin) throw domain_error("Incorrect/empty array/vector mediate");
+	size_t size = end - begin;
+
+	typedef typename std::iterator_traits<Input>::value_type RetType;
+	
+	std::vector<RetType> temp(begin, end);
+	sort(temp.begin(), temp.end());
+
+	size_t mid = size / 2;
+	
+	return size % 2 == 0 ? (temp[mid] + temp[mid+1]) / 2 : temp[mid];
+};
 double average(const std::vector<double>&);
 template <class T> bool compare(const T& x, const T& y)
 {
