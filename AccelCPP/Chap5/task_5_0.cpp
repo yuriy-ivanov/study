@@ -1,12 +1,12 @@
 // task_5_0.cpp : Defines the entry point for the console application.
 //
-// original source from book (strings splitting, framing and output)
+// original source from book.
 
 #include "stdafx.h"
 #include <string>
 #include <iostream>
 #include <vector>
-#include "..\..\functions.h"
+#include "..\..\..\functions.h"
 
 using namespace std;
 

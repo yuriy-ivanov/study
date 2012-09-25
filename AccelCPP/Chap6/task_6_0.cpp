@@ -47,6 +47,10 @@ int _tmain(int argc, _TCHAR* argv[])
 	common_write_analysis(cout, "aerage", average_grade, did, didnt);
 	common_write_analysis(cout, "median of homework turned in", optimistic_median, did, didnt);
 
+	//Task 8.1. - Write template function parametrized by final grade function type.
+	//Use this new function.
+	common_write_analysis_g(cout, "median", grade_aux, did, didnt);
+
 	return 0;
 }
 

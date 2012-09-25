@@ -11,6 +11,9 @@
 //			 -report students with ascending names, marks presented as course P(passed) / F(failed).
 // Task 9.6. Modify program (by task 9.5.) to report course passed students, then - failed.
 
+// Task 10.1. Rewrite program to output marks as 'A' to 'F'.
+// Task 11.5. Instrument the 'Student_info' class to count how often objects are created, copied, assigned, and destroyed.
+
 #include "stdafx.h"
 #include <iostream>
 #include <vector>
@@ -25,11 +28,16 @@ class Student_info_class {
 public:
 	Student_info_class();
 	Student_info_class(istream&);
+	Student_info_class(const Student_info_class&);
+	~Student_info_class();
+	Student_info_class& operator=(const Student_info_class&);
+
 	string name() const { return n; }
 	bool valid() const { return !homework.empty(); }
 	istream& read(istream&);
 	double grade() const;
 	bool passed() const; //Task 9.5.
+	char final_grade_mark() const; //Task 10.1.
 
 private:
 	string n;
@@ -37,10 +45,37 @@ private:
 	vector<double> homework;
 	double final_grade; //Task 9.1.
 	mutable bool _passed; //Task 9.6.
+	// Task 11.5.
+	static size_t created;
+	static size_t copied;
+	static size_t assigned;
+	static size_t destroyed;
 };
 
-Student_info_class::Student_info_class(): midterm(0), final(0) { }
-Student_info_class::Student_info_class(istream& is) { read(is); }
+size_t Student_info_class::created = 0;
+size_t Student_info_class::copied = 0;
+size_t Student_info_class::assigned = 0;
+size_t Student_info_class::destroyed = 0;
+
+Student_info_class::Student_info_class(): midterm(0), final(0) { ++created; }
+Student_info_class::Student_info_class(istream& is) { read(is); ++created; }
+Student_info_class::Student_info_class(const Student_info_class& rhs): 
+	n(rhs.n), midterm(rhs.midterm), final(rhs.final), homework(rhs.homework), final_grade(rhs.final_grade), _passed(rhs._passed) { ++copied; }
+	
+Student_info_class::~Student_info_class() { ++destroyed; }
+Student_info_class& Student_info_class::operator=(const Student_info_class& rhs) {
+	if (&rhs == this) return *this;
+	++assigned;
+	n = rhs.n;
+	midterm = rhs.midterm;
+	final = rhs.final;
+	homework = rhs.homework;
+	final_grade = rhs.final_grade;
+	_passed = rhs._passed;
+
+	return *this;
+}
+
 istream& Student_info_class::read(istream& in)
 {
 	in >> n >> midterm >> final;
@@ -61,6 +96,18 @@ bool Student_info_class::passed() const
 	// Reimplement due to task 9.6.
 	// return ((midterm + final)/2.0 > 60.0); // Task 9.5.
 	return _passed;
+}
+
+char Student_info_class::final_grade_mark() const
+{
+	static const char letters[] = { 'A', 'B', 'C', 'D', 'F' };
+	static const double marks[] = { 90.0, 80.0, 70.0, 60.0, 0.0 };
+
+	for (size_t i = 0; i < (sizeof(marks)/sizeof(*marks)); ++i)
+	{
+		if (final_grade > marks[i]) return letters[i];
+	}
+	return '?';
 }
 
 bool compare_class(const Student_info_class& x, const Student_info_class& y)
@@ -110,6 +157,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	for (vector<Student_info_class>::size_type i = 0; i != students.size(); ++i) {
 		cout << students[i].name() << string(maxlen + 1 - students[i].name().size(), ' ');
 		cout << "Course passed?: " << (students[i].passed()? "P" : "F") << endl;
+		cout << "Letter mark: " << students[i].final_grade_mark() << endl; // Task 10.1.
 	}
 	
 	return 0;

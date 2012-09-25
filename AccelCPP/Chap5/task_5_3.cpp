@@ -3,7 +3,7 @@
 // "typedef" used for implementation of vector- and list- based solutions.
 
 #include "stdafx.h"
-#include "..\..\functions.h"
+#include "..\..\..\functions.h"
 #include <time.h>
 #include <iostream>
 #include <stdexcept>
