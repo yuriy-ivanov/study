@@ -2,14 +2,13 @@
 //
 // Original source from chap 7, src#1 (count words)
 
-#include "stdafx.h"
 #include <string>
 #include <map>
 #include <iostream>
 
 using namespace std;
 
-int _tmain(int argc, _TCHAR* argv[])
+int main()
 {
 	string s;
 	map<string, size_t> counters;

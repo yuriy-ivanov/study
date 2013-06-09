@@ -8,18 +8,17 @@
 //            And "appears in lines:" for multiple occurrances.
 // +task 7.8. Modify program to find and output URLs and line numbers where URLs found.
 
-#include "stdafx.h"
 #include <map>
 #include <iostream>
 #include <string>
 #include <vector>
 #include <algorithm>
 #include <iterator>
-#include "..\..\functions.h"
+#include "..\functions.h"
 
 using namespace std;
 
-int _tmain(int argc, _TCHAR* argv[])
+int main()
 {
 	map<string, vector<size_t> > ret = xref(cin);
 
@@ -96,9 +95,9 @@ int _tmain(int argc, _TCHAR* argv[])
 	}
 	
 	//task 7.8. Modify program to find and output URLs and line numbers where URLs found.
-	map<string, vector<size_t> > ret = xref(cin, find_urls); //calling find_urls() to find URLs within a line.
+	map<string, vector<size_t> > ret2 = xref(cin, find_urls); //calling find_urls() to find URLs within a line.
 
-	for(map<string, vector<size_t> >::const_iterator it = ret.begin(); it != ret.end(); ++it)
+	for(map<string, vector<size_t> >::const_iterator it = ret2.begin(); it != ret2.end(); ++it)
 	{
 		cout << it->first << " appears in line(s): ";
 		vector<size_t>::const_iterator line_it = it->second.begin();

@@ -2,8 +2,7 @@
 //
 // "typedef" used for implementation of vector- and list- based solutions.
 
-#include "stdafx.h"
-#include "..\..\..\functions.h"
+#include "..\functions.h"
 #include <time.h>
 #include <iostream>
 #include <stdexcept>
@@ -21,7 +20,7 @@ void test_containers_perf(int lenght);
 typedef vector<Student_info> students_vector;
 typedef list<Student_info> students_list;
 
-int _tmain(int argc, _TCHAR* argv[])
+int main()
 {
 	srand(time(NULL));
 	
@@ -39,7 +38,7 @@ void test_containers_perf(int lenght)
 	students_vector students;
 	
 	try { students = studentGen(lenght);} //generate <lenght> dummy students with marks
-	catch (domain_error e) {cout << e.what();}
+	catch (domain_error& e) {cout << e.what();}
 	
 	students_list students_l(students.begin(), students.end());
 

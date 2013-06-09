@@ -14,13 +14,12 @@
 // Task 10.1. Rewrite program to output marks as 'A' to 'F'.
 // Task 11.5. Instrument the 'Student_info' class to count how often objects are created, copied, assigned, and destroyed.
 
-#include "stdafx.h"
 #include <iostream>
 #include <vector>
 #include <algorithm>
 #include <iomanip>
 #include <exception>
-#include "..\..\functions.h"
+#include "..\functions.h"
 
 using namespace std;
 
@@ -120,7 +119,7 @@ bool isPassed(const Student_info_class& x)
 	return x.passed(); // Task 9.6.
 }
 
-int _tmain(int argc, _TCHAR* argv[])
+int main()
 {
 	vector<Student_info_class> students;
 	Student_info_class record;
@@ -140,7 +139,7 @@ int _tmain(int argc, _TCHAR* argv[])
 			double final_grade = students[i].grade();
 			streamsize prec = cout.precision();
 			cout << setprecision(3) << final_grade << setprecision(prec) << endl;
-		} catch (domain_error e) {
+		} catch (domain_error& e) {
 			cout << e.what() << endl;
 		}
 	}

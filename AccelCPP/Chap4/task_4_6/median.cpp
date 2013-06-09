@@ -1,11 +1,11 @@
-#include "stdafx.h"
 #include <algorithm>
 #include <stdexcept>
 #include <vector>
+#include "median.h"
 
 using namespace std;
 
-double median(vector<double> vec)
+double task46::median(vector<double> vec)
 {
 	typedef vector<double>::size_type vec_sz;
 

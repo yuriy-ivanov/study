@@ -2,7 +2,6 @@
 //
 // Program to count from 10 to -5.
 
-#include "stdafx.h"
 #include <iostream>
 #include <string>
 
@@ -11,9 +10,9 @@ using std::cout;
 using std::endl;
 
 
-int _tmain(int argc, _TCHAR* argv[])
+int main()
 {
-	string name;
+	std::string name;
 
 	for (int i = 10; i >= -5; --i) cout << "i = " << i << endl;
 

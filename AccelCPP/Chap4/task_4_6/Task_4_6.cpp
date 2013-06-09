@@ -4,35 +4,32 @@
 // Task: modify struct Student_info for calculate marks instantly and saving final grade only.
 
 
-#include "stdafx.h"
 #include <algorithm>
 #include <iomanip>
 #include <ios>
-#include <iostream>
 #include <stdexcept>
-#include <vector>
 #include "grade.h"
 #include "Student_info.h"
 
 using namespace std;
 
 
-int _tmain(int argc, _TCHAR* argv[])
+int main()
 {
-	vector<Student_info> students;
-	Student_info record;
+	vector<task46::Student_info> students;
+	task46::Student_info record;
 	string::size_type max_len = 0;
 
-	while(read(cin, record))
+	while(task46::read(cin, record))
 	{
 		max_len = max(max_len, record.name.size());
 		students.push_back(record);
 	}
 
 
-	sort(students.begin(), students.end(), compare);
+	sort(students.begin(), students.end(), task46::compare);
 
-	for (vector<Student_info>::size_type i = 0; i != students.size(); ++i)
+	for (vector<task46::Student_info>::size_type i = 0; i != students.size(); ++i)
 	{
 		cout << students[i].name << string(max_len + 1 - students[i].name.size(), ' ');
 		streamsize prec = cout.precision();

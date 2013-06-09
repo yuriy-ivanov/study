@@ -2,7 +2,6 @@
 //
 // Ask for two numbers, then output bigger one.
 
-#include "stdafx.h"
 #include <iostream>
 #include <string>
 
@@ -12,7 +11,7 @@ using std::endl;
 using std::string;
 
 
-int _tmain(int argc, _TCHAR* argv[])
+int main()
 {
 	string name;
 

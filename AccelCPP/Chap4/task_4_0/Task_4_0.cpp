@@ -3,20 +3,23 @@
 // Original source from book
 
 
-#include "stdafx.h"
 #include <algorithm>
 #include <iomanip>
 #include <ios>
-#include <iostream>
 #include <stdexcept>
-#include <vector>
-#include "grade.h"
-#include "Student_info.h"
+#include "../../functions.h"
 
 using namespace std;
 
+namespace aux {
+bool compare(const Student_info& x, const Student_info& y)
+{
+	return x.name < y.name;
+}
 
-int _tmain(int argc, _TCHAR* argv[])
+}
+
+int main()
 {
 	vector<Student_info> students;
 	Student_info record;
@@ -29,7 +32,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	}
 
 
-	sort(students.begin(), students.end(), compare);
+	sort(students.begin(), students.end(), aux::compare);
 
 	for (vector<Student_info>::size_type i = 0; i != students.size(); ++i)
 	{
@@ -39,7 +42,7 @@ int _tmain(int argc, _TCHAR* argv[])
 			streamsize prec = cout.precision();
 			cout << setprecision(3) << final_grade << setprecision(prec);
 		}
-		catch (domain_error e) {
+		catch (domain_error& e) {
 			cout << e.what();
 		}
 		cout << endl;

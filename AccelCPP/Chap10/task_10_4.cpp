@@ -4,9 +4,9 @@
 // Task 10.5. - Write bidirectional iterator for 'String_list' class.
 // Task 10.6. - Reimplement split() function so it's results will be stored in 'String_list'.
 
-#include "stdafx.h"
 #include <iostream>
 #include <list>
+#include <stdexcept>
 
 using namespace std;
 
@@ -143,7 +143,7 @@ String_list split_10_6(const string& s)
 	return ret;
 }
 
-int _tmain(int argc, _TCHAR* argv[])
+int main()
 {
 	String_list data("aaa");
 	cout << data.size() << endl;
@@ -157,7 +157,7 @@ int _tmain(int argc, _TCHAR* argv[])
 			data.pop();
 			cout << data.size() << endl;
 		}
-	} catch (domain_error e) {
+	} catch (domain_error& e) {
 		cout << e.what() << endl;
 	}
 	

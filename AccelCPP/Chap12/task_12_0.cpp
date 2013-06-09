@@ -14,7 +14,6 @@
 // Task 12.12. - Define the 'insert' function that takes two iterators for the 'Vec' and 'Str' classes.
 // Task 12.13. - Provide an 'assign' function that could be used to assign the values in an array to a 'Vec'.
 
-#include "stdafx.h"
 #include <algorithm>
 #include <iterator>
 #include <iostream>
@@ -139,7 +138,7 @@ bool operator!=(const Str& lhs, const Str& rhs) {
 	return !(lhs == rhs);
 }
 
-int _tmain(int argc, _TCHAR* argv[])
+int main()
 {
 	Str s1("Hello ");
 	Str s2 = "world ";

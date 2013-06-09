@@ -9,15 +9,14 @@
 // task_6_4 - implement at least two solutions to copy vector.
 
 
-#include "stdafx.h"
-#include "..\..\functions.h"
+#include "..\functions.h"
 #include <vector>
 #include <iostream>
 #include <iterator>
 
 using namespace std;
 
-int _tmain(int argc, _TCHAR* argv[])
+int main()
 {
 	vector<int> u(10, 100);
 	vector<int> v;

@@ -4,7 +4,6 @@
 // Task 11.6. Add an operation to remove an element from a 'Vec' and another to empty the entire 'Vec'. 
 //			  These should behave analogously to the 'erase' and 'clear' operations on vectors.
 
-#include "stdafx.h"
 #include <memory>
 #include <stdexcept>
 
@@ -129,7 +128,7 @@ private:
 	void unchecked_append(const T& val) { alloc.construct(avail++, val); }
 };
 
-int _tmain(int argc, _TCHAR* argv[])
+int main()
 {
 	Vec<int> v;
 	v.push_back(100);

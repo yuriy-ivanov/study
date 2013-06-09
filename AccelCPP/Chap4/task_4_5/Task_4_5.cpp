@@ -3,19 +3,15 @@
 // 1. Function to read words from input and save into vector.
 // 2. Program uses this function (#1) for: total words entered; count unique word instances from input.
 
-#include "stdafx.h"
-#include <iostream>
-#include <vector>
-#include <string>
 #include "cread.h"
 
 using namespace std;
 
-int _tmain(int argc, _TCHAR* argv[])
+int main()
 {
 	cout << "Input (terminate with EOF): ";
 	vector<string> input;
-	cread(cin, input);
+	aux::cread(cin, input);
 	
 	typedef vector<string>::size_type vec_sz;
 	vec_sz size = input.size();

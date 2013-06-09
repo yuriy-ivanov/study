@@ -2,16 +2,15 @@
 //
 // original source from book.
 
-#include "stdafx.h"
 #include <string>
 #include <iostream>
 #include <vector>
-#include "..\..\..\functions.h"
+#include "..\functions.h"
 
 using namespace std;
 
 
-int _tmain(int argc, _TCHAR* argv[])
+int main()
 {
 	string s;
 

@@ -2,7 +2,6 @@
 //
 // Output shortest and longest string from input.
 
-#include "stdafx.h"
 #include <algorithm>
 #include <iomanip>
 #include <ios>
@@ -13,7 +12,7 @@
 using std::cin; using std::cout; using std::endl; using std::setprecision;
 using std::sort; using std::streamsize; using std::string; using std::vector;
 
-int _tmain(int argc, _TCHAR* argv[])
+int main()
 {
 	cout << "Input (terminate with EOF): ";
 	vector<string> input;

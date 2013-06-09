@@ -9,35 +9,40 @@
 //
 // Results should contain count of students assigned to each grade range (category).
 
-#include "stdafx.h"
 #include <vector>
 #include <algorithm>
 #include <iostream>
 #include <iomanip>
-#include "..\..\functions.h"
+#include "..\functions.h"
 
-using namespace std;
+namespace task72 {
 
-int _tmain(int argc, _TCHAR* argv[])
+bool compare (const Student_info& x, const Student_info& y) {
+	return x.name < y.name;
+}
+
+}
+
+int main()
 {
-	vector<Student_info> students;
+	std::vector<Student_info> students;
 	Student_info record;
-	string::size_type max_len = 0;
+	std::string::size_type max_len = 0;
 	// task 7.2. 
-	map<char, size_t> students_grades; // Key=[A,B,C,D,F], Value=count of students belong to grade range.
+	std::map<char, size_t> students_grades; // Key=[A,B,C,D,F], Value=count of students belong to grade range.
 	
-	while(read(cin, record))
+	while(read(std::cin, record))
 	{
-		max_len = max(max_len, record.name.size());
+		max_len = std::max(max_len, record.name.size());
 		students.push_back(record);
 	}
 
 
-	sort(students.begin(), students.end(), compare);
+	std::sort(students.begin(), students.end(), task72::compare);
 
-	for (vector<Student_info>::size_type i = 0; i != students.size(); ++i)
+	for (std::vector<Student_info>::size_type i = 0; i != students.size(); ++i)
 	{
-		cout << students[i].name << string(max_len + 1 - students[i].name.size(), ' ');
+		std::cout << students[i].name << std::string(max_len + 1 - students[i].name.size(), ' ');
 		try {
 			//not needed, since read() responsible for grade() call
 			//double final_grade = grade(students[i]); 
@@ -50,19 +55,19 @@ int _tmain(int argc, _TCHAR* argv[])
 			else if (students[i].final_grade <= 89.9) ++students_grades['B'];
 			else ++students_grades['A'];
 
-			streamsize prec = cout.precision();
-			cout << setprecision(3) << students[i].final_grade << setprecision(prec);
+			std::streamsize prec = std::cout.precision();
+			std::cout << std::setprecision(3) << students[i].final_grade << std::setprecision(prec);
 		}
-		catch (domain_error e) {
-			cout << e.what();
+		catch (std::domain_error& e) {
+			std::cout << e.what();
 		}
-		cout << endl;
+		std::cout << std::endl;
 		
 		// task 7.2.
-		for(map<char, size_t>::const_iterator it = students_grades.begin(); it != students_grades.end(); ++it)
-			cout << "Grade " << it->first << " - " << it->second << " students" << endl;
+		for(std::map<char, size_t>::const_iterator it = students_grades.begin(); it != students_grades.end(); ++it)
+			std::cout << "Grade " << it->first << " - " << it->second << " students" << std::endl;
 
-		cout << endl;
+		std::cout << std::endl;
 	}
 	return 0;
 }

@@ -2,7 +2,6 @@
 //
 // Just source from book, no mods.
 
-#include "stdafx.h"
 #include <iostream>
 #include <string>
 
@@ -12,7 +11,7 @@ using std::endl;
 using std::string;
 
 
-int _tmain(int argc, _TCHAR* argv[])
+int main()
 {
 	
 	cout << "Enter your name: ";

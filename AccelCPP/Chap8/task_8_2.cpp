@@ -13,7 +13,6 @@
 // remove(b, e, t)
 // partition(b, e, p) - not ready
 
-#include "stdafx.h"
 
 template <class T> bool equal(T b, T e, T d)
 {
@@ -78,7 +77,7 @@ template <class It, class Pred> It partition(It b, It e, Pred f)
 	//not ready
 }
 
-int _tmain(int argc, _TCHAR* argv[])
+int main()
 {
 	return 0;
 }

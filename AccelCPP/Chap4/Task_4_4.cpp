@@ -2,14 +2,13 @@
 //
 // Squares of 'doubles' range [0, 1000) and column-style output.
 
-#include "stdafx.h"
 #include <iostream>
 #include <iomanip>
 
 
 using namespace std;
 
-int _tmain(int argc, _TCHAR* argv[])
+int main()
 {
 	double val = 0.0;
 	

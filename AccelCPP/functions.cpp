@@ -1,15 +1,18 @@
 #include <stdexcept>
-#include <vector>
 #include <algorithm>
-#include <list>
 #include <string>
 #include <functional>
 #include <iterator>
 #include <assert.h>
-#include <map>
 #include "functions.h"
 
 using namespace std;
+
+template <>
+bool compare <vector<Student_info>::iterator >(const vector<Student_info>::iterator& x, const vector<Student_info>::iterator& y)
+{
+	return x->name < y->name;
+}
 
 double average(const vector<double>& vec)
 {
@@ -69,8 +72,11 @@ bool fgrade(const Student_info& s)
 }
 double grade_aux(const Student_info& s)
 {
-	try { return grade(s); }
-	catch (domain_error) { return grade(s.midterm, s.final, 0); }
+	double retval = 0;
+	try { retval = grade(s); }
+	catch (std::domain_error&) { retval = grade(s.midterm, s.final, 0); }
+
+	return retval;
 }
 double median_analysis(const vector<Student_info>& students)
 {

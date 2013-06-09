@@ -2,7 +2,6 @@
 //
 // Program to count multiplication of numbers within range [1 to 10).
 
-#include "stdafx.h"
 #include <iostream>
 #include <string>
 
@@ -11,7 +10,7 @@ using std::cout;
 using std::endl;
 
 
-int _tmain(int argc, _TCHAR* argv[])
+int main()
 {
 	std::string name;
 

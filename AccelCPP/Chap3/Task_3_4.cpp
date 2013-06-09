@@ -2,7 +2,6 @@
 //
 // Program to track marks for several students.
 
-#include "stdafx.h"
 #include <algorithm>
 #include <iomanip>
 #include <ios>
@@ -26,7 +25,7 @@ double final_mark(student_str);
 student_str student_input(void);
 
 
-int _tmain(int argc, _TCHAR* argv[])
+int main()
 {
 	
 	vector<student_str> students;

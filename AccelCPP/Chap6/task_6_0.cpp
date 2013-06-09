@@ -2,13 +2,12 @@
 //
 // Original source from book (failing students)
 
-#include "stdafx.h"
-#include "..\..\functions.h"
+#include "..\functions.h"
 #include <vector>
 
 using namespace std;
 
-int _tmain(int argc, _TCHAR* argv[])
+int main()
 {
 	vector<Student_info> did, didnt;
 
@@ -44,7 +43,7 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	// Task 6.6. - Now using common_analysis func
 	common_write_analysis(cout, "median", grade_aux, did, didnt);
-	common_write_analysis(cout, "aerage", average_grade, did, didnt);
+	common_write_analysis(cout, "average", average_grade, did, didnt);
 	common_write_analysis(cout, "median of homework turned in", optimistic_median, did, didnt);
 
 	//Task 8.1. - Write template function parametrized by final grade function type.

@@ -2,13 +2,12 @@
 //
 // Program to calculate squares of range [0, 100), then table-styled output using "cout.width" / "setw" function.
 
-#include "stdafx.h"
 #include <iostream>
 
 
 using namespace std;
 
-int _tmain(int argc, _TCHAR* argv[])
+int main()
 {
 	unsigned int val = 0;
 	

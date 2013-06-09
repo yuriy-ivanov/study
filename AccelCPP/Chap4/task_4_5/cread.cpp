@@ -1,9 +1,8 @@
-#include "stdafx.h"
 #include "cread.h"
 
 using namespace std;
 
-istream& cread(istream& is, std::vector<string>& vec)
+istream& aux::cread(istream& is, std::vector<string>& vec)
 {
 		if (is) {
 		vec.clear();

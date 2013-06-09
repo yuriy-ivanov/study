@@ -2,7 +2,6 @@
 //
 // Mod: ask user for a padding value
 
-#include "stdafx.h"
 #include <iostream>
 #include <string>
 
@@ -12,7 +11,7 @@ using std::endl;
 using std::string;
 
 
-int _tmain(int argc, _TCHAR* argv[])
+int main()
 {
 	
 	cout << "Enter your name: ";
@@ -28,7 +27,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	cin >> pad_value;
 
 	//Adding padding value for rows
-	//Adding padding valur for columns
+	//Adding padding value for columns
 	const int pad_r = pad_value;
 	const int pad_c = pad_value;
 

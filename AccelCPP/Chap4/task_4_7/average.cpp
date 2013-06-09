@@ -1,10 +1,10 @@
-#include "stdafx.h"
 #include <vector>
 #include <stdexcept>
+#include "average.h"
 
 using namespace std;
 
-double average(const vector<double>& vec)
+double task47::average(const vector<double>& vec)
 {
 	if (vec.size() == 0) throw domain_error("Empty vector");
 	double summ = 0.0;

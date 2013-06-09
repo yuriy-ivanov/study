@@ -8,6 +8,8 @@
 #include <vector>
 #include <list>
 #include <map>
+#include <stdexcept>
+#include <algorithm>
 
 struct Student_info {
 	std::string name;
@@ -31,10 +33,10 @@ template <class T> T median(std::vector<T>& vec)
 	typedef typename std::vector<T>::size_type vec_sz;
 
 	vec_sz size = vec.size();
-	if (size == 0) throw domain_error("Empty vector mediate");
+	if (size == 0) throw std::domain_error("Empty vector mediate");
 
 	// cannot use "T median(const vector<T>& vec)" due to "sort" call:
-	sort(vec.begin(), vec.end());
+	std::sort(vec.begin(), vec.end());
 
 	vec_sz mid = size / 2;
 
@@ -45,13 +47,13 @@ template <class T> T median(std::vector<T>& vec)
 // Task 10.3. - Call of median() function should not change order of items in vector/array.
 template <typename Input> typename std::iterator_traits<Input>::value_type median2(const Input begin, const Input end)
 {
-	if (end <= begin) throw domain_error("Incorrect/empty array/vector mediate");
+	if (end <= begin) throw std::domain_error("Incorrect/empty array/vector mediate");
 	size_t size = end - begin;
 
 	typedef typename std::iterator_traits<Input>::value_type RetType;
 	
 	std::vector<RetType> temp(begin, end);
-	sort(temp.begin(), temp.end());
+	std::sort(temp.begin(), temp.end());
 
 	size_t mid = size / 2;
 	
@@ -62,6 +64,7 @@ template <class T> bool compare(const T& x, const T& y)
 {
 	return x.name() < y.name();
 }
+
 std::istream& read(std::istream&, Student_info&);
 std::istream& read_hw(std::istream&, std::vector<double>&);
 std::istream& cread(std::istream&, std::vector<std::string>&);
@@ -96,8 +99,8 @@ void common_write_analysis(std::ostream&, const std::string&, double func(const 
 // Dependency mods
 template<class T> void common_write_analysis_g(std::ostream& out, const std::string& name, T func, const std::vector<Student_info>& did, const std::vector<Student_info>& didnt)
 {
-	out << name << ": median(did) = " << analysis_g(did, func) <<
-		", median(didnt) = " << analysis_g(didnt, func) << std::endl;
+	out << name << ": median(did) = " << analysis_g(did, func) << \
+			", median(didnt) = " << analysis_g(didnt, func) << "\n";
 };
 // Task 8.1. - Write template function parametrized by final grade function type
 template<class T> double analysis_g(const std::vector<Student_info>& students, T func)
@@ -117,10 +120,6 @@ bool bracketed(const std::string&);
 void gen_aux(const Grammar&, const std::string&, std::vector<std::string>&);
 void gen_aux_list(const Grammar&, const std::string&, std::list<std::string>&);
 int nrand(int);
-template<class Out> void gen_sentence_iterator(const Grammar& g, Out& os)
-{
-	gen_aux_iterator(g, "<sentence>", os);
-};
 template<class Out> void gen_aux_iterator(const Grammar& g, const std::string& word, Out& os)
 {
 	if (!bracketed(word))
@@ -128,13 +127,17 @@ template<class Out> void gen_aux_iterator(const Grammar& g, const std::string& w
 		*os++ = word;
 	} else {
 		Grammar::const_iterator it = g.find(word);
-		if (it == g.end()) throw logic_error("empty rule");
+		if (it == g.end()) throw std::logic_error("empty rule");
 
 		const Rule_collection& c = it->second;
 		const Rule& r = c[nrand(c.size())];
 
 		for (Rule::const_iterator i = r.begin(); i != r.end(); ++i) gen_aux_iterator(g, *i, os);
 	}
+};
+template<class Out> void gen_sentence_iterator(const Grammar& g, Out& os)
+{
+	gen_aux_iterator(g, "<sentence>", os);
 };
 
 #endif

@@ -3,8 +3,7 @@
 // Program to extract failing students using <vector> and <list> containers.
 // Compare performance for vector and list solutions for students record sizes: 10, 1000 and 10000
 
-#include "stdafx.h"
-#include "..\..\functions.h"
+#include "..\functions.h"
 #include <time.h>
 #include <iostream>
 #include <stdexcept>
@@ -19,7 +18,7 @@ using namespace std;
 
 void test_containers_perf(int lenght);
 
-int _tmain(int argc, _TCHAR* argv[])
+int main()
 {
 	srand(time(NULL));
 	
@@ -37,7 +36,7 @@ void test_containers_perf(int lenght)
 	vector<Student_info> students;
 	
 	try { students = studentGen(lenght);} //generate <lenght> dummy students with marks
-	catch (domain_error e) {cout << e.what();}
+	catch (domain_error& e) {cout << e.what();}
 	
 	list<Student_info> students_l(students.begin(), students.end());
 

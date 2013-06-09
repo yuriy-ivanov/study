@@ -3,7 +3,6 @@
 // Calculate arithmetic average of vector<double>
 
 
-#include "stdafx.h"
 #include <vector>
 #include <iostream>
 #include "average.h"
@@ -12,16 +11,16 @@
 
 using namespace std;
 
-int _tmain(int argc, _TCHAR* argv[])
+int main()
 {
 	cout << "Enter values, terminate with Crtl+Z: ";
 	vector<double> val;
 	input(cin, val);
 	cout << endl << "Average is ";
 	try {	
-		cout << average(val) << endl;
+		cout << task47::average(val) << endl;
 	}
-	catch (domain_error e) {
+	catch (domain_error& e) {
 		cout << e.what();
 	}
 	return 0;

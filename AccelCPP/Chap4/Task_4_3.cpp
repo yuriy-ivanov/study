@@ -2,14 +2,13 @@
 //
 //
 
-#include "stdafx.h"
 #include <iostream>
 #include <iomanip>
 
 
 using namespace std;
 
-int _tmain(int argc, _TCHAR* argv[])
+int main()
 {
 	unsigned int val = 0;
 	

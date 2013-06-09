@@ -2,13 +2,12 @@
 //
 // Using suitable library algo concatenate all elements of vector<string>
 
-#include "stdafx.h"
 #include <vector>
 #include <string>
 #include <algorithm>
 #include <iterator>
 #include <functional>
-#include "..\..\functions.h"
+#include "..\functions.h"
 
 using namespace std;
 
@@ -17,7 +16,7 @@ string destination = "";
 
 void appender(const string& s);
 
-int _tmain(int argc, _TCHAR* argv[])
+int main()
 {
 	typedef vector<string>::const_iterator iter;
 	

@@ -4,7 +4,6 @@
 
 // Copy-pasted-modified code from Task 10.4.
 
-#include "stdafx.h"
 #include <stdexcept>
 #include <iostream>
 
@@ -56,9 +55,9 @@ public:
 		}
 	}
 	T pop_back() {
-		if (!last_node_ptr) throw domain_error("Nothing to pop!");
+		if (!last_node_ptr) throw std::domain_error("Nothing to pop!");
 		if (last_node_ptr == first_node_ptr) {
-			string ret(last_node_ptr->data);
+			std::string ret(last_node_ptr->data);
 			delete last_node_ptr;
 			last_node_ptr = first_node_ptr = NULL;
 			return ret;
@@ -118,7 +117,7 @@ const iterator end() const {
 };
 
 
-int _tmain(int argc, _TCHAR* argv[])
+int main()
 {
 	list<int> intlist;
 	list<std::string> strlist("aaa");

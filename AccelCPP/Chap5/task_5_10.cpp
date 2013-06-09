@@ -2,17 +2,16 @@
 //
 // Program to find all and max_lenght palindrome(s) from input / vocab.
 
-#include "stdafx.h"
-#include "..\..\functions.h"
+#include "..\functions.h"
 #include <string>
 #include <vector>
 #include <list>
 
 using namespace std;
 
-list<string> find_palindromes(const list<string>& list);
+list<string> find_palindromes(const list<string>& lst);
 
-int _tmain(int argc, _TCHAR* argv[])
+int main()
 {
 	//input or vocab with data
 	list<string> data;
@@ -26,17 +25,17 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	palindromes.sort();
 
-	cout << "Max lenght palindrome is: " << *(palindromes.end() - 1);
+	cout << "Max lenght palindrome is: " << *(--palindromes.end());
 
 
 	return 0;
 }
 
-list<string> find_palindromes(const list<string>& lis)
+list<string> find_palindromes(const list<string>& lst)
 {
 	list<string> ret;
 
-	for (list<string>::const_iterator i = lis.begin(); i != lis.end(); ++i) {
+	for (list<string>::const_iterator i = lst.begin(); i != lst.end(); ++i) {
 		if (is_palindrome(*i)) ret.push_back(*i);
 	}
 	return ret;

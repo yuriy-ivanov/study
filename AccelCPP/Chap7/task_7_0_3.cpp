@@ -3,15 +3,14 @@
 // Original source from chap 7, src#3 (sentence generator)
 // +task 7.5. Modify program to use <list> instead of <vector>
 
-#include "stdafx.h"
 #include <vector>
 #include <string>
 #include <iostream>
-#include "..\..\functions.h"
+#include "..\functions.h"
 
 using namespace std;
 
-int _tmain(int argc, _TCHAR* argv[])
+int main()
 {
 	vector<string> sentence = gen_sentence(read_grammar(cin));
 	vector<string>::const_iterator it = sentence.begin();

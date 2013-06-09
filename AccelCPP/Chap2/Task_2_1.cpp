@@ -2,7 +2,6 @@
 //
 // Changing padding to zero (no space between frame and greeting)
 
-#include "stdafx.h"
 #include <iostream>
 #include <string>
 
@@ -12,7 +11,7 @@ using std::endl;
 using std::string;
 
 
-int _tmain(int argc, _TCHAR* argv[])
+int main()
 {
 	
 	cout << "Enter your name: ";

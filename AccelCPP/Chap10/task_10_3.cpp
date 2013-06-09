@@ -2,15 +2,14 @@
 //
 // Task 10.3. Verify median() function modified by tasks 10.2 and 10.3.
 
-#include "stdafx.h"
-#include "..\..\functions.h"
+#include "..\functions.h"
 #include <vector>
 #include <iostream>
 #include <algorithm>
 
 using namespace std;
 
-int _tmain(int argc, _TCHAR* argv[])
+int main()
 {
 	const size_t arr_size = 11;
 
@@ -38,7 +37,7 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	try {
 		median2(f, e);
-	} catch (domain_error e) {
+	} catch (domain_error& e) {
 		cout << e.what();
 	}
 

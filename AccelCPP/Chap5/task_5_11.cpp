@@ -3,14 +3,13 @@
 // Program to find if target word has any ascenders or descenders letters.
 // [add] Find max lenght word from input / vocab that has no any ascenders or descenders letters.
 
-#include "stdafx.h"
-#include "..\..\functions.h"
+#include "..\functions.h"
 #include <string>
 #include <vector>
 
 using namespace std;
 
-int _tmain(int argc, _TCHAR* argv[])
+int main()
 {
 	vector<string> values;
 	cread(cin, values);

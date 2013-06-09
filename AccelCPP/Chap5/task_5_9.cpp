@@ -2,14 +2,13 @@
 //
 // Program to print input words in CAPITALS then in lowercase.
 
-#include "stdafx.h"
-#include "..\..\functions.h"
+#include "..\functions.h"
 #include <string>
 #include <vector>
 
 using namespace std;
 
-int _tmain(int argc, _TCHAR* argv[])
+int main()
 {
 	vector<string> values;
 	cread(cin, values);
