@@ -2,7 +2,7 @@ CC=g++
 CFLAGS=-c -Wall
 LIB=lib/functions.o
 
-all: ch2 ch3 ch4 ch5 ch6 ch7 ch8 ch9 ch10 ch11 ch12
+all: ch2 ch3 ch4 ch5 ch6 ch7 ch8 ch9 ch10 ch11 ch12 ch13
 	
 
 ch2: lib
@@ -67,6 +67,10 @@ ch11: lib
 
 ch12: lib
 	$(CC) $(LIB) chap12/Task_12_0.cpp -o bin/task_12_0.exe
+
+ch13: lib
+	$(CC) $(LIB) chap13/Task_13_0.cpp -o bin/task_13_0.exe
+	$(CC) $(LIB) chap13/Task_13_1.cpp -o bin/task_13_1.exe
 
 lib:
 	$(CC) $(CFLAGS) functions.cpp -o $(LIB)
