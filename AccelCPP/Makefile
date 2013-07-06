@@ -72,6 +72,10 @@ ch13: lib
 	$(CC) $(LIB) chap13/Task_13_0.cpp -o bin/task_13_0.exe
 	$(CC) $(LIB) chap13/Task_13_1.cpp -o bin/task_13_1.exe
 
+ch14: lib
+	$(CC) $(LIB) chap14/Task_14_0.cpp -o bin/task_14_0.exe
+	$(CC) $(LIB) chap14/Task_14_3.cpp -o bin/task_14_3.exe
+	
 lib:
 	$(CC) $(CFLAGS) functions.cpp -o $(LIB)
 
